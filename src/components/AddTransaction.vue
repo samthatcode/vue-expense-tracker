@@ -1,19 +1,20 @@
 <template>
   <h3>Add new transaction</h3>
+
+   <!-- form to add new transactions -->
   <form id="form" @submit.prevent="onSubmit">
     <div class="form-control">
       <label for="text">Expense</label>
-      <input type="text" id="text" required placeholder="Enter expense..." v-model="text" />
+      <input type="text" id="text" placeholder="Enter expense..." v-model="text" />
     </div>
     <div class="form-control">
-      <label for="amount"
-        >Amount <br />
-        (negative - expense, positive - income)</label
-      >
+      <label for="amount">Amount <br />
+        (negative - expense, positive - income)
+      </label>
       <input
         type="text"
         id="amount"
-        required placeholder="Enter amount..."
+        placeholder="Enter amount..."
         v-model="amount"
       />
     </div>
@@ -31,6 +32,7 @@ const amount = ref('');
 // Get toast interface
 const toast = useToast();
 
+// emits transaction event to parent component if form is valid 
 const emit = defineEmits(['transactionSubmitted']);
 
 const onSubmit = () => {
@@ -47,9 +49,10 @@ const onSubmit = () => {
     amount: parseFloat(amount.value),
   };
 
+  // emits a transactionSubmitted event with the transaction data
   emit('transactionSubmitted', transactionData);
 
-  // Clear form fields
+  // Clear form fields for next transaction entry
   text.value = '';
   amount.value = '';
 };

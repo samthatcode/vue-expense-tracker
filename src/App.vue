@@ -2,11 +2,13 @@
   <Header />
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpenses :income="+income" :expenses="+expenses" />
-    <TransactionList
+    <IncomeExpenses :income="income" :expenses="expenses" />
+    <!-- transactions array containing transaction data is passed as a prop. -->
+    <!-- Event listeners (@transactionSubmitted and @transactionDeleted) are attached to the child components to handle transaction submission and deletion. -->
+    <TransactionList 
+    :transactions="transactions"
+    @transactionDeleted="handleTransactionDeleted"
     v-if="transactions.length > 0"
-      :transactions="transactions"
-      @transactionDeleted="handleTransactionDeleted"
     />
     <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
   </div>
